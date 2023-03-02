@@ -51,4 +51,24 @@ describe('Restaurant and Menu Models', () => {
         await testRestaurant.destroy()
         expect(testRestaurant).toEqual(null)
     });
+
+    test('Multiple menus can be added to a Restaurant.', async () => {
+        const foundMenu = await Restaurant.findAll();
+        expect(foundBand.getMenu().title).toBe('Breakfast');
+    });
+
+    test('Multiple Items can be added to a Menu', async () => {
+        const foundItems = await Menu.findAll();
+        expect(foundItems.getMenu().title).toBe('Breakfast');
+    })
+
+    test('Eager Loading', async () =>{
+        const foundItems2 = await Menu.findAll({
+         include: [
+             { model: Item, as: "item"},
+         ]
+        });
+        expect(foundItems2.getMenu().title).toBe('Breakfast')
+     })
+
 })
